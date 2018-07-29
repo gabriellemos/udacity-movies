@@ -32,4 +32,18 @@ public class RestController {
         return VolleyRequest.getInstance().getmRequestQueue().add(mRequest);
     }
 
+    public static Request movieInformation(int movieID,
+                                           Listener<JSONObject> listener,
+                                           ErrorListener errorListener) {
+
+        StringBuilder stringBuilder = new StringBuilder(BASE_API_URL)
+                .append("movie/").append(movieID)
+                .append("?api_key=").append(API_KEY);
+
+        String url = stringBuilder.toString();
+        JsonRequest mRequest = new JsonObjectRequest(Request.Method.GET, url,
+                null, listener, errorListener);
+        return VolleyRequest.getInstance().getmRequestQueue().add(mRequest);
+    }
+
 }

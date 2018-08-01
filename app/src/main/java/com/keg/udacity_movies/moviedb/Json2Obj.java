@@ -2,7 +2,11 @@ package com.keg.udacity_movies.moviedb;
 
 import com.keg.udacity_movies.moviedb.model.movie.MovieLite;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Json2Obj {
 
@@ -19,6 +23,19 @@ public class Json2Obj {
             return movieLite;
         } catch (Throwable throwable) {
             return null;
+        }
+    }
+
+    public static List<MovieLite> json2MovieLiteList(JSONArray jsonArray) {
+        List<MovieLite> movieList = new ArrayList<>();
+        try {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                movieList.add(json2MovieLite(jsonObject));
+            }
+            return movieList;
+        } catch (Throwable throwable) {
+            return movieList;
         }
     }
 

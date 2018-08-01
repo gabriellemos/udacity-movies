@@ -8,6 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.keg.udacity_movies.VolleyRequest;
+import com.keg.udacity_movies.moviedb.model.movie.Movie;
 import com.keg.udacity_movies.moviedb.model.movie.MovieLite;
 import com.keg.udacity_movies.moviedb.model.movie.OrderBy;
 
@@ -29,6 +30,42 @@ public class Json2ObjTest {
     public static void beforeClass() {
         appContext = InstrumentationRegistry.getTargetContext();
         VolleyRequest.init(appContext);
+    }
+
+    @Test
+    public void json2Movie_test() {
+        Request request = RestController.movieInformation(353081,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            Movie movie = Json2Obj.json2Movie(response);
+
+                            Assert.assertNotNull(movie);
+                            Assert.assertNotEquals(0, movie.getId());
+                            Assert.assertNotEquals(0, movie.getPopularity());
+                            Assert.assertNotEquals(0, movie.getVoteAverage());
+                            Assert.assertNotEquals("", movie.getTitle());
+                            Assert.assertNotEquals("", movie.getOriginalTitle());
+                            Assert.assertNotEquals("", movie.getTagline());
+                            Assert.assertNotEquals("", movie.getStatus());
+                            Assert.assertNotEquals("", movie.getOverview());
+                            Assert.assertNotEquals("", movie.getPosterPath());
+                            Assert.assertNotEquals("", movie.getReleaseDate());
+                        } catch (Throwable throwable) {
+                            Assert.fail();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Assert.fail();
+                    }
+                });
+
+        while (!request.hasHadResponseDelivered()) {
+        }
     }
 
     @Test
@@ -61,7 +98,8 @@ public class Json2ObjTest {
                     }
                 });
 
-        while (!request.hasHadResponseDelivered()) {}
+        while (!request.hasHadResponseDelivered()) {
+        }
     }
 
     @Test
@@ -88,7 +126,8 @@ public class Json2ObjTest {
                     }
                 });
 
-        while (!request.hasHadResponseDelivered()) {}
+        while (!request.hasHadResponseDelivered()) {
+        }
     }
 
 }

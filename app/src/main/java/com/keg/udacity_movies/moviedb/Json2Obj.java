@@ -1,5 +1,6 @@
 package com.keg.udacity_movies.moviedb;
 
+import com.keg.udacity_movies.moviedb.model.movie.Movie;
 import com.keg.udacity_movies.moviedb.model.movie.MovieLite;
 
 import org.json.JSONArray;
@@ -9,6 +10,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Json2Obj {
+
+    public static Movie json2Movie(JSONObject jsonObject) {
+        try {
+            Movie movie = new Movie();
+            movie.setId             (jsonObject.getInt("id"));
+            movie.setPopularity     (jsonObject.getInt("popularity"));
+            movie.setVoteAverage    (jsonObject.getInt("vote_average"));
+            movie.setTitle          (jsonObject.getString("title"));
+            movie.setOriginalTitle  (jsonObject.getString("original_title"));
+            movie.setTagline        (jsonObject.getString("tagline"));
+            movie.setStatus         (jsonObject.getString("status"));
+            movie.setOverview       (jsonObject.getString("overview"));
+            movie.setPosterPath     (jsonObject.getString("poster_path"));
+            movie.setReleaseDate    (jsonObject.getString("release_date"));
+            return movie;
+        } catch (Throwable throwable) {
+            return null;
+        }
+    }
 
     public static MovieLite json2MovieLite(JSONObject jsonObject) {
         try {

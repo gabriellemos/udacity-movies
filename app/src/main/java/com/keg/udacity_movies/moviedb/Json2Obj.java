@@ -55,6 +55,7 @@ public class Json2Obj {
             }
             return movieList;
         } catch (Throwable throwable) {
+            movieList.clear();
             return movieList;
         }
     }
